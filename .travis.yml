@@ -11,6 +11,10 @@ env:
   - secure: kufSuaczK1N07iLL+9NmKAMHKYjtshbqPMbJLqZdAZOPgfKAaEat3dDq/EnryOCvIDZrlQeudn7G3fmIUY76hMdM2pc6vtrA15vSZ4o8RaG9zPPMhmQIQlnq4tdzvpNMlNVB3gFsXXSlBKy6D6jx7hkuffk0akOHp1Q++weP3fo=
 
 before_install:
+  - wget https://dl.dropboxusercontent.com/u/7897865/apache-maven-3.3.9.zip
+  - unzip -qq apache-maven-3.3.9.zip
+  - export M2_HOME=$PWD/apache-maven-3.3.9
+  - export PATH=$M2_HOME/bin:$PATH
 - if [ -z "$TRAVIS_SECURE_ENV_VARS" -o "$TRAVIS_SECURE_ENV_VARS" == "false" ]; then echo "Skipping decryption because secure environment variables are not present."; else openssl aes-256-cbc -pass pass:$ENCRYPTION_PASSWORD -in secring.gpg.enc -out local.secring.gpg -d; openssl aes-256-cbc -pass pass:$ENCRYPTION_PASSWORD -in pubring.gpg.enc -out local.pubring.gpg -d; fi;
 
 after_success:
